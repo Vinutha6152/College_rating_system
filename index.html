@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome & Login</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('./download3.png'); /* Update path to your image */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .welcome-page {
+            text-align: center;
+            color: #fff;
+        }
+
+        .welcome-page h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .welcome-page p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .welcome-page .get-started-btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            background-color: #ffcc00;
+            color: #162938;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-page .get-started-btn:hover {
+            background-color: #ffb700;
+            transform: scale(1.1);
+        }
+
+        .wrapper {
+            position: relative;
+            width: 600px;
+            height: auto;
+            background: rgba(255, 255, 255, 0.133);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+            
+        }
+
+        .wrapper.show {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .wrapper.hidden {
+            display: none;
+        }
+
+        .wrapper .form-box {
+            width: 100%;
+            padding: 40px;
+        }
+
+        .wrapper h2 {
+            font-size: 2em;
+            color: #162938;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid #162938;
+            margin: 30px 0;
+        }
+
+        .input-box input, .input-box select {
+            width: 100%;
+            height: 100%;
+            padding: 5px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 10%;
+            left: 5px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #ffcc00;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .input-box input:focus ~ label,
+        .input-box input:valid ~ label,
+        .input-box select:focus ~ label {
+            top: -10px;
+            font-size: 0.85em;
+            color: #20b286;
+        }
+
+        .input-box .icon {
+            position: absolute;
+            right: 8px;
+            font-size: 1.2em;
+            color:  #ffcc00
+        }
+
+        .wrapper .form-box .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+            font-size: 1.1em;
+            background-color: #ffcc00;
+            color: #162938;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .wrapper .form-box .btn:hover {
+            background-color: #ffb700;
+            transform: scale(1.1);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-register {
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .login-register a {
+            color: rgb(141, 141, 243);
+            text-decoration: none;
+        }
+
+        .login-register a:hover {
+            text-decoration: underline;
+        }
+
+        .select-box select {
+            color: #3e6889;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-page">
+        <h1 style="font-size: 60px;"> <strong>Welcome to College Mirror</strong></h1>
+        <p> <strong>Your one-stop destination for college reviews and ratings!</strong></p>
+        <button class="get-started-btn">Get Started</button>
+    </div>
+
+    <div class="wrapper hidden">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="backend/auth.php" method="POST">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+               
+                <button type="submit" name="login" class="btn">Login</button>
+                
+                <div class="login-register">
+                    <p>Don't have an account? <a href="#" class="register-link" style="color: rgb(141, 141, 243);">Sign up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="wrapper hidden" id="register">
+        <div class="form-box register">
+            <h2>Sign Up</h2>
+            <form action="backend/auth.php" method="POST">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                    <input type="text" name="full_name" required>
+                    <label>Full Name</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        required 
+                        minlength="8" 
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" 
+                        title="Password must contain at least 8 characters, including uppercase, lowercase, a number, and a special character."
+                    >
+                    <label>Password</label>
+                </div>
+
+       
+
+                <div class="input-box select-box">
+                    <select name="course_name" required>
+                        <option value="">Select Course</option>
+                        <option value="B.E/B.Tech">B.E/B.Tech</option>
+                    </select>
+                    <label>Course Name</label>
+                </div>
+
+                <div class="input-box select-box">
+                    <select name="branch_name" required>
+                        <option value="">Select Branch</option>
+                        <option value="AI">Artificial Intelligence</option>
+                    <option value="AID">Artificial Intelligence and Data Science</option>
+                    <option value="AIM">Artificial Intelligence and Machine Learning</option>
+                    <option value="ANE">Aeronautical Engineering</option>
+                    <option value="ARB">Automation and Robotics</option>
+                    <option value="AUT">Automobile Engineering</option>
+                    <option value="BME">Bio-Medical Engineering</option>
+                    <option value="CHE">Chemical Engineering</option>
+                    <option value="CIC">CSE (IoT and Cyber Security including Block Chain Technology)</option>
+                    <option value="CIV">Civil Engineering</option>
+                    <option value="CME">Computer Engineering</option>
+                    <option value="CSB">Computer Science and Business System</option>
+                    <option value="CSC">Computer Science and Engineering (Cyber Security)</option>
+                    <option value="CSD">Computer Science and Engineering (Data Science)</option>
+                    <option value="CSE">Computer Science and Engineering</option>
+                    <option value="CSG">Computer Science and Design</option>
+                    <option value="CSI">Computer Science and Information Technology</option>
+                    <option value="CSM">Computer Science and Engineering (Artificial Intelligence and Machine Learning)</option>
+                    <option value="CSN">Computer Science and Engineering (Networks)</option>
+                    <option value="CSO">Computer Science and Engineering (IoT)</option>
+                    <option value="CST">Computer Science and Technology</option>
+                    <option value="CSW">Computer Engineering (Software Engineering)</option>
+                    <option value="ECE">Electronics and Communication Engineering</option>
+                    <option value="ECI">Electronics Communication and Instrumentation Engineering</option>
+                    <option value="EEE">Electrical and Electronics Engineering</option>
+                    <option value="EIE">Electronics and Instrumentation Engineering</option>
+                    <option value="ETM">Electronics and Telematics</option>
+                    <option value="INF">Information Technology</option>
+                    <option value="IPE">Industrial Production Engineering</option>
+                    <option value="MCT">Mechanical (Mechatronics) Engineering</option>
+                    <option value="MEC">Mechanical Engineering</option>
+                    <option value="MET">Metallurgical Engineering</option>
+                    <option value="MMT">Metallurgy and Material Engineering</option>
+                    <option value="MIN">Mining Engineering</option>
+                    <option value="TEX">Textile Technology</option>
+
+                        <option value="Other">Other</option>
+                    </select>
+                    <label>Branch Name</label>
+                </div>
+
+                <div class="input-box" id="other-branch" style="display:none;">
+                    <input type="text" name="other_branch" placeholder="Enter Branch Name">
+                    <label>Other Branch Name</label>
+                </div>
+
+                <div class="input-box select-box">
+                    <select name="semester" id="semester" required>
+                        <option value="">Select Semester</option>
+                        <option value="1st">1st Semester</option>
+                        <option value="2nd">2nd Semester</option>
+                        <option value="3rd">3rd Semester</option>
+                        <option value="4th">4th Semester</option>
+                        <option value="5th">5th Semester</option>
+                        <option value="6th">6th Semester</option>
+                        <option value="7th">7th Semester</option>
+                        <option value="8th">8th Semester</option>
+                        <option value="Graduated">Graduated</option>
+                    </select>
+                    <label>Semester</label>
+                </div>
+
+                <div class="input-box" id="graduation-year" style="display:none;">
+                    <input type="text" name="graduation_year" placeholder="Enter Graduation Year">
+                    <label>Graduation Year</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="text" name="usn" required>
+                    <label>College USN</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="date" name="dob" required>
+                    <label>Date of Birth</label>
+                </div>
+
+                <div class="input-box select-box">
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <label>Gender</label>
+                </div>
+
+                <button type="submit" name="register" class="btn">Sign Up</button>
+                <div class="login-register">
+                    <p>Already have an account? <a href="#" class="login-link" style="color: rgb(141, 141, 243);">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const getStartedButton = document.querySelector(".get-started-btn");
+            const welcomePage = document.querySelector(".welcome-page");
+            const loginPage = document.querySelector(".wrapper");
+            const registerPage = document.querySelector("#register");
+
+            const registerLink = document.querySelector(".register-link");
+            const loginLink = document.querySelector(".login-link");
+
+            // Get Started Button
+            getStartedButton.addEventListener("click", () => {
+                welcomePage.style.display = "none";
+                loginPage.classList.remove("hidden");
+                setTimeout(() => {
+                    loginPage.classList.add("show");
+                }, 10);
+            });
+
+            // Show Register Page
+            registerLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginPage.classList.remove("show");
+                setTimeout(() => {
+                    loginPage.classList.add("hidden");
+                    registerPage.classList.remove("hidden");
+                    setTimeout(() => {
+                        registerPage.classList.add("show");
+                    }, 10);
+                }, 300);
+            });
+
+            // Show Login Page
+            loginLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                registerPage.classList.remove("show");
+                setTimeout(() => {
+                    registerPage.classList.add("hidden");
+                    loginPage.classList.remove("hidden");
+                    setTimeout(() => {
+                        loginPage.classList.add("show");
+                    }, 10);
+                }, 300);
+            });
+
+            // Handle branch selection
+            const branchSelect = document.querySelector('select[name="branch_name"]');
+            const otherBranchInput = document.getElementById('other-branch');
+            branchSelect.addEventListener('change', () => {
+                if (branchSelect.value === "Other") {
+                    otherBranchInput.style.display = 'block';
+                } else {
+                    otherBranchInput.style.display = 'none';
+                }
+            });
+
+            // Handle semester selection
+            const semesterSelect = document.getElementById('semester');
+            const graduationYearInput = document.getElementById('graduation-year');
+            semesterSelect.addEventListener('change', () => {
+                if (semesterSelect.value === "Graduated") {
+                    graduationYearInput.style.display = 'block';
+                } else {
+                    graduationYearInput.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
